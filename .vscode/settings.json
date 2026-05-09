@@ -1,0 +1,49 @@
+{
+  // ---------- Python 解释器 ----------
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  
+  // ---------- 测试配置 ----------
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": ["tests"],
+  "python.testing.autoTestDiscoverOnSaveEnabled": true,
+  
+  // ---------- Ruff 配置（推荐，速度快）----------
+  // 将 Ruff 设为默认的 linting 和格式化工具
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[toml]": {
+    "editor.formatOnSave": true,          // 保存时自动格式化
+    "editor.defaultFormatter": "tamasfe.even-better-toml" // 指定使用 Even Better TOML 作为格式化工具
+  },
+  "ruff.enable": true,
+  "ruff.organizeImports": true,
+  "ruff.fixAll": true,
+  
+  // ---------- 编辑器增强 ----------
+  "editor.rulers": [88],                     // 竖线标识（遵循 Black/Ruff 的行宽）
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true
+  },
+  
+  // ---------- 终端 ----------
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.env.osx": {
+    "PYTHONPATH": "${workspaceFolder}"
+  },
+  "terminal.integrated.env.linux": {
+    "PYTHONPATH": "${workspaceFolder}"
+  },
+  "terminal.integrated.env.windows": {
+    "PYTHONPATH": "${workspaceFolder}"
+  }
+}

@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "uv sync (install deps)",
+            "type": "shell",
+            "command": "uv",
+            "args": ["sync", "--dev"],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "ruff check & format",
+            "type": "shell",
+            "command": "uv",
+            "args": ["run", "ruff", "check", "--fix", ".", "&&", "uv", "run", "ruff", "format", "."],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "run tests",
+            "type": "shell",
+            "command": "uv",
+            "args": ["run", "pytest", "tests/", "-v"],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
