@@ -1,9 +1,10 @@
 [project]
 name = "allinone4programmer-backend"
-version = "0.1.0"
-description = "allinone"
+version = "0.0.1"
+description = "allinone for programmer"
 readme = "README.md"
 requires-python = ">=3.13"
+# 生产依赖
 dependencies = [
     "asyncpg>=0.31.0",
     "fastapi[standard]>=0.136.1",
@@ -14,6 +15,7 @@ dependencies = [
 ]
 
 [dependency-groups]
+# 开发依赖
 dev = [
     "pytest>=9.0.3",
     "pytest-asyncio>=1.3.0",
@@ -22,18 +24,32 @@ dev = [
 ]
 
 [tool.ruff]
+# ruff 格式化器的最大行宽为 88 个字符
 line-length = 88
 target-version = "py313"
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "W", "UP"] # pycodestyle, pyflakes, isort, pyupgrade
-ignore = ["E501"]                   # 行长度交给 formatter
+# select：键，数组值。
+# 每个字符串是规则代码：
+# E pycodestyle 错误，
+# F pyflakes 问题，
+# I isort 导入排序，
+# W pycodestyle 警告，
+# UP pyupgrade 语法升级建议
+select = ["E", "F", "I", "W", "UP"]
+# ignore：要忽略的规则，E501 是行长度警告（已被 formatter 处理）
+ignore = ["E501"]
 
 [tool.ruff.format]
+# 使用双引号作为字符串引号风格。
 quote-style = "double"
+# 缩进使用空格（而非 tab）。
 indent-style = "space"
 
 [tool.pytest.ini_options]
+# 设置 pytest-asyncio 插件模式为 auto，自动识别异步测试函数。
 asyncio_mode = "auto"
+# 指定测试搜索路径为 tests 目录
 testpaths = ["tests"]
+# 测试文件名匹配模式，以 test_ 开头的 .py 文件
 python_files = "test_*.py"
