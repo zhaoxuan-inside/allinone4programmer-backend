@@ -6,9 +6,14 @@ from app.utils.exceptions import register_exception_handlers
 from app.config import settings
 from app.core.database import engine
 from app.core.redis_client import init_redis, close_redis
-from app.models.item import Base  # 导入模型以便建表
+
+# 导入模型以便建表
+from app.models.item import Base
 from app.utils.logger import logger
 
+
+# 用来将异步生成器函数包装成一个异步上下文管理器，这里用于 FastAPI 的 lifespan
+# @asynccontextmanager 将 lifespan 变成一个异步上下文管理器，函数在 yield 之前的部分在应用启动时执行，yield 之后的部分在应用关闭时执行
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 启动时：初始化 Redis
@@ -28,6 +33,7 @@ async def lifespan(app: FastAPI):
     await engine.dispose()
     logger.info("Resources cleaned up")
 
+
 app = FastAPI(
     title=settings.app_name,
     debug=settings.debug,
@@ -37,6 +43,7 @@ app = FastAPI(
 add_cors_middleware(app)
 register_exception_handlers(app)
 app.include_router(v1_router)
+
 
 @app.get("/")
 async def root():
