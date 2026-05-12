@@ -1,13 +1,14 @@
 from collections.abc import AsyncGenerator
 
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+
 from app.config import settings
 
 engine = create_async_engine(settings.database_url, echo=settings.debug)
 AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)
 
 
-async def get_db() -> AsyncGenerator[AsyncSession, None]:
+async def get_db() -> AsyncGenerator[AsyncSession]:
     # 每个请求开始时：AsyncSessionLocal() 创建一个新的 AsyncSession 对象。
     # 底层会从连接池中 借出一个数据库连接（不会新建 TCP 连接，除非池子空了且未达到上限）。
     # 请求结束时：退出 async with，session.close() 将连接 归还给连接池（不是真正关闭）。
